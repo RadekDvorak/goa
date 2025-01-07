@@ -116,3 +116,15 @@ var OverridingHiddenExamplesDSL = func() {
 		})
 	})
 }
+
+var NotGeneratedExamplesDSL = func() {
+	Service("NotGeneratedExamples", func() {
+		Meta("openapi:generate", "false")
+		Method("Method", func() {
+			Payload(String, func() {
+				Meta("openapi:generate", "false")
+				Example("example")
+			})
+		})
+	})
+}

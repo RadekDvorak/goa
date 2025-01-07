@@ -66,6 +66,7 @@ func TestExample(t *testing.T) {
 		{"empty-example", testdata.EmptyExampleDSL, nil, "too few arguments given to Example in attribute"},
 		{"hiding-example", testdata.HidingExampleDSL, nil, ""},
 		{"overriding-hidden-examples", testdata.OverridingHiddenExamplesDSL, "example", ""},
+		{"not-generated-examples", testdata.NotGeneratedExamplesDSL, nil, ""},
 	}
 	r := expr.NewRandom("test")
 	for _, k := range cases {

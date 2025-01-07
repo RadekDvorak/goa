@@ -18,6 +18,14 @@ const (
 // isn't such a value then Example computes a random value for the attribute
 // using the given random value producer.
 func (a *AttributeExpr) Example(r *ExampleGenerator) any {
+	value, ok := a.Meta.Last("openapi:generate")
+	if !ok {
+		value, ok = a.Meta.Last("swagger:generate")
+	}
+	if ok && value == "false" {
+		return nil
+	}
+
 	if ex := a.ExtractUserExamples(); len(ex) > 0 {
 		// Return the last item in the slice so that examples can be overridden
 		// in the DSL. Overridden examples are always appended to the UserExamples
@@ -26,14 +34,6 @@ func (a *AttributeExpr) Example(r *ExampleGenerator) any {
 	}
 
 	if r.Randomizer == nil {
-		return nil
-	}
-
-	value, ok := a.Meta.Last("openapi:generate")
-	if !ok {
-		value, ok = a.Meta.Last("swagger:generate")
-	}
-	if ok && value == "false" {
 		return nil
 	}
 
